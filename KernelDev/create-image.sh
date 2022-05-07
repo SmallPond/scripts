@@ -19,6 +19,7 @@ fi
 ARCH=$(uname -m)
 RELEASE=stretch
 FEATURE=minimal
+DEBOOTSTRAP_SERVER="http://mirrors.aliyun.com/ubuntu/" 
 SEEK=2047
 PERF=false
 
@@ -134,7 +135,7 @@ sudo chmod 0755 $DIR
 
 # 1. debootstrap stage
 
-DEBOOTSTRAP_PARAMS="--arch=$DEBARCH --include=$PREINSTALL_PKGS --components=main,contrib,non-free $RELEASE $DIR"
+DEBOOTSTRAP_PARAMS="--arch=$DEBARCH --include=$PREINSTALL_PKGS --components=main,contrib,non-free $RELEASE $DIR $DEBOOTSTRAP_SERVER"
 if [ $FOREIGN = "true" ]; then
     DEBOOTSTRAP_PARAMS="--foreign $DEBOOTSTRAP_PARAMS"
 fi
