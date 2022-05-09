@@ -3,7 +3,7 @@
 # Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
 
 # create-image.sh creates a minimal Debian Linux image suitable for syzkaller.
-
+# https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md
 set -eux
 
 # Create a minimal Debian distribution in a directory.
@@ -19,6 +19,7 @@ fi
 ARCH=$(uname -m)
 RELEASE=stretch
 FEATURE=minimal
+DEBOOTSTRAP_SERVER="" 
 SEEK=2047
 PERF=false
 
@@ -134,7 +135,7 @@ sudo chmod 0755 $DIR
 
 # 1. debootstrap stage
 
-DEBOOTSTRAP_PARAMS="--arch=$DEBARCH --include=$PREINSTALL_PKGS --components=main,contrib,non-free $RELEASE $DIR"
+DEBOOTSTRAP_PARAMS="--arch=$DEBARCH --include=$PREINSTALL_PKGS --components=main,contrib,non-free $RELEASE $DIR $DEBOOTSTRAP_SERVER"
 if [ $FOREIGN = "true" ]; then
     DEBOOTSTRAP_PARAMS="--foreign $DEBOOTSTRAP_PARAMS"
 fi
